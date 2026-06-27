@@ -1,0 +1,2114 @@
+<!DOCTYPE html>
+<html lang="zh">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+    <title>2026【中秋园游建寺义卖会】固本登记</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@300;400;500;600;700&family=Noto+Serif+SC:wght@400;500;600;700&display=swap"
+        rel="stylesheet">
+    <style>
+        /* ── RESET ── */
+        *,
+        *::before,
+        *::after {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        html {
+            -webkit-text-size-adjust: 100%;
+            scroll-behavior: smooth;
+        }
+
+        /* ── TOKENS ── */
+        :root {
+            --rust: #8b1a1a;
+            --rust-mid: #b52020;
+            --rust-light: #f5e8e8;
+            --rust-pale: #fdf4f4;
+            --gold: #c8860a;
+            --gold-light: #fff5d6;
+            --gold-pale: #fffbf0;
+            --paper: #faf8f4;
+            --ink: #1e1a18;
+            --ink-2: #4a3f38;
+            --ink-3: #9a8e86;
+            --border: #d8d0c6;
+            --success: #2d6a2a;
+            --error: #c0392b;
+            --radius: 10px;
+            --radius-sm: 7px;
+            --font: 'Noto Sans SC', system-ui, sans-serif;
+            --serif: 'Noto Serif SC', Georgia, serif;
+            --tr: 0.16s ease;
+        }
+
+        body {
+            font-family: var(--font);
+            background: var(--paper);
+            color: var(--ink);
+            min-height: 100vh;
+            line-height: 1.7;
+            font-size: 15px;
+        }
+
+        /* ══════════════════════════════════════════
+           LOADING OVERLAY
+        ══════════════════════════════════════════ */
+        .loading-overlay {
+            position: fixed;
+            inset: 0;
+            background: rgba(0, 0, 0, 0.55);
+            display: none;
+            align-items: center;
+            justify-content: center;
+            flex-direction: column;
+            gap: 14px;
+            z-index: 9999;
+        }
+
+        .loading-overlay.show {
+            display: flex;
+        }
+
+        .spinner {
+            width: 40px;
+            height: 40px;
+            border: 3px solid rgba(255, 255, 255, 0.25);
+            border-top-color: #fff;
+            border-radius: 50%;
+            animation: spin 0.8s linear infinite;
+        }
+
+        @keyframes spin {
+            to {
+                transform: rotate(360deg);
+            }
+        }
+
+        .loading-text {
+            color: #fff;
+            font-size: 14px;
+            font-weight: 500;
+        }
+
+        /* ══════════════════════════════════════════
+           COMPACT BANNER
+        ══════════════════════════════════════════ */
+        .banner {
+            background: var(--rust);
+            position: sticky;
+            top: 0;
+            z-index: 200;
+        }
+
+        .banner-inner {
+            max-width: 640px;
+            margin: 0 auto;
+            padding: 10px 18px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .banner-glyph {
+            width: 32px;
+            height: 32px;
+            background: rgba(255, 255, 255, 0.13);
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 18px;
+            flex-shrink: 0;
+        }
+
+        .banner-text {
+            flex: 1;
+            min-width: 0;
+        }
+
+        .banner-title {
+            font-family: var(--serif);
+            font-size: 14.5px;
+            font-weight: 600;
+            color: #fff;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        .banner-sub {
+            font-size: 10.5px;
+            color: rgba(255, 255, 255, 0.65);
+            margin-top: 1px;
+        }
+
+        .banner-badge {
+            font-size: 11px;
+            font-weight: 700;
+            background: var(--gold);
+            color: #fff;
+            padding: 3px 9px;
+            border-radius: 4px;
+            white-space: nowrap;
+            flex-shrink: 0;
+            letter-spacing: 0.3px;
+        }
+
+        /* ══════════════════════════════════════════
+           INFO STRIP
+        ══════════════════════════════════════════ */
+        .info-strip {
+            background: rgba(0, 0, 0, 0.20);
+            border-top: 1px solid rgba(255, 255, 255, 0.08);
+        }
+
+        .info-strip-inner {
+            max-width: 640px;
+            margin: 0 auto;
+            padding: 9px 18px;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 6px 20px;
+            font-size: 11px;
+        }
+
+        .info-item {
+            color: rgba(255, 255, 255, 0.70);
+            display: flex;
+            gap: 4px;
+        }
+
+        .info-item strong {
+            color: #ffd280;
+            font-weight: 600;
+        }
+
+        /* ══════════════════════════════════════════
+           STICKY PROGRESS BAR
+        ══════════════════════════════════════════ */
+        .progress-bar {
+            background: #fff;
+            border-bottom: 1px solid var(--border);
+            position: sticky;
+            top: 53px;
+            z-index: 190;
+        }
+
+        .progress-bar.hidden {
+            display: none;
+        }
+
+        .progress-inner {
+            max-width: 640px;
+            margin: 0 auto;
+            padding: 10px 18px;
+            display: flex;
+            align-items: center;
+        }
+
+        .step-node {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 4px;
+            flex: 1;
+            position: relative;
+        }
+
+        .step-node::after {
+            content: '';
+            position: absolute;
+            top: 13px;
+            left: 50%;
+            width: 100%;
+            height: 2px;
+            background: var(--border);
+            z-index: 0;
+            transition: background 0.3s;
+        }
+
+        .step-node:last-child::after {
+            display: none;
+        }
+
+        .step-node.done::after {
+            background: var(--rust);
+        }
+
+        .step-dot {
+            width: 26px;
+            height: 26px;
+            border-radius: 50%;
+            border: 2px solid var(--border);
+            background: #fff;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 11px;
+            font-weight: 700;
+            color: var(--ink-3);
+            position: relative;
+            z-index: 1;
+            transition: all 0.25s;
+        }
+
+        .step-node.active .step-dot {
+            border-color: var(--rust);
+            background: var(--rust);
+            color: #fff;
+            box-shadow: 0 0 0 4px rgba(139, 26, 26, 0.15);
+        }
+
+        .step-node.done .step-dot {
+            border-color: var(--rust);
+            background: var(--rust);
+            color: #fff;
+        }
+
+        .step-label {
+            font-size: 10px;
+            color: var(--ink-3);
+            font-weight: 500;
+            letter-spacing: 0.2px;
+        }
+
+        .step-node.active .step-label {
+            color: var(--rust);
+            font-weight: 700;
+        }
+
+        .step-node.done .step-label {
+            color: var(--rust-mid);
+        }
+
+        /* ══════════════════════════════════════════
+           FORM CONTAINER
+        ══════════════════════════════════════════ */
+        .form-outer {
+            max-width: 640px;
+            margin: 0 auto;
+            padding: 20px 18px;
+            padding-bottom: calc(96px + env(safe-area-inset-bottom));
+        }
+
+        /* ── STEP PANEL ── */
+        .step-panel {
+            display: none;
+        }
+
+        .step-panel.active {
+            display: block;
+        }
+
+        /* ── STEP HEADER ── */
+        .step-header {
+            margin-bottom: 20px;
+            display: flex;
+            align-items: flex-start;
+            gap: 12px;
+        }
+
+        .step-number {
+            font-size: 11px;
+            font-weight: 700;
+            color: var(--rust);
+            background: var(--rust-light);
+            border: 1px solid #e8c4c4;
+            border-radius: 5px;
+            padding: 3px 9px;
+            white-space: nowrap;
+            flex-shrink: 0;
+            margin-top: 2px;
+        }
+
+        .step-heading h2 {
+            font-family: var(--serif);
+            font-size: 19px;
+            font-weight: 600;
+            color: var(--ink);
+            line-height: 1.3;
+        }
+
+        .step-heading p {
+            font-size: 12px;
+            color: var(--ink-3);
+            margin-top: 3px;
+        }
+
+        /* ── CARD ── */
+        .form-card {
+            background: #fff;
+            border: 1px solid var(--border);
+            border-radius: var(--radius);
+            padding: 20px;
+            box-shadow: 0 1px 4px rgba(0, 0, 0, 0.06);
+            margin-bottom: 14px;
+        }
+
+        .card-label {
+            font-size: 10px;
+            font-weight: 700;
+            color: var(--rust);
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            border-left: 3px solid var(--rust);
+            padding-left: 7px;
+            margin-bottom: 14px;
+        }
+
+        /* ── FIELD ── */
+        .field {
+            margin-bottom: 16px;
+        }
+
+        .field:last-child {
+            margin-bottom: 0;
+        }
+
+        .field label {
+            display: block;
+            font-size: 13px;
+            font-weight: 500;
+            color: var(--ink-2);
+            margin-bottom: 6px;
+        }
+
+        .field label.req::after {
+            content: ' *';
+            color: var(--rust);
+        }
+
+        .field-hint {
+            font-size: 11px;
+            color: var(--ink-3);
+            margin-top: 4px;
+        }
+
+        .err-msg {
+            font-size: 11px;
+            color: var(--error);
+            margin-top: 4px;
+            display: none;
+        }
+
+        .err-msg.show {
+            display: block;
+        }
+
+        /* ── INPUTS ── */
+        input[type=text],
+        input[type=tel],
+        input[type=email],
+        select,
+        textarea {
+            width: 100%;
+            padding: 10px 13px;
+            border: 1.5px solid var(--border);
+            border-radius: var(--radius-sm);
+            background: #fff;
+            font-family: var(--font);
+            font-size: 15px;
+            color: var(--ink);
+            transition: border-color var(--tr), box-shadow var(--tr);
+            outline: none;
+            -webkit-appearance: none;
+            appearance: none;
+        }
+
+        input:focus,
+        select:focus,
+        textarea:focus {
+            border-color: var(--rust-mid);
+            box-shadow: 0 0 0 3px rgba(139, 26, 26, 0.10);
+        }
+
+        input.invalid,
+        select.invalid,
+        textarea.invalid {
+            border-color: var(--error);
+            background: #fff8f7;
+        }
+
+        input.valid {
+            border-color: var(--success);
+            background: #f7fdf7;
+        }
+
+        input::placeholder {
+            color: var(--ink-3);
+        }
+
+        select {
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='%238a8a8a' stroke-width='2'%3E%3Cpath d='M6 9l6 6 6-6'/%3E%3C/svg%3E");
+            background-repeat: no-repeat;
+            background-position: right 12px center;
+            padding-right: 34px;
+        }
+
+        .field-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 12px;
+        }
+
+        @media(max-width:480px) {
+            .field-row {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        /* ══════════════════════════════════════════
+           SELECTABLE OPT CARDS
+        ══════════════════════════════════════════ */
+        .card-options {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+            margin-top: 4px;
+        }
+
+        .card-options.row {
+            flex-direction: row;
+            flex-wrap: wrap;
+            gap: 8px;
+        }
+
+        .opt-card {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 11px 14px;
+            border: 1.5px solid var(--border);
+            border-radius: 9px;
+            cursor: pointer;
+            transition: border-color var(--tr), background var(--tr), box-shadow var(--tr);
+            background: #fff;
+            user-select: none;
+            position: relative;
+        }
+
+        .opt-card:hover {
+            border-color: #d9a8a8;
+            background: var(--rust-pale);
+        }
+
+        .opt-card.selected {
+            border-color: var(--rust);
+            background: var(--rust-light);
+            box-shadow: 0 0 0 3px rgba(139, 26, 26, 0.10);
+        }
+
+        /* row variant */
+        .card-options.row .opt-card {
+            flex: 1;
+            min-width: 80px;
+            justify-content: center;
+            flex-direction: column;
+            gap: 4px;
+            text-align: center;
+            padding: 10px 12px;
+        }
+
+        .card-options.row .opt-card .opt-icon {
+            font-size: 20px;
+        }
+
+        .card-options.row .opt-card .opt-radio {
+            display: none;
+        }
+
+        .opt-radio {
+            width: 16px;
+            height: 16px;
+            border-radius: 50%;
+            border: 2px solid var(--border);
+            flex-shrink: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: border-color var(--tr), background var(--tr);
+        }
+
+        .opt-card.selected .opt-radio {
+            border-color: var(--rust);
+            background: var(--rust);
+        }
+
+        .opt-radio::after {
+            content: '';
+            width: 6px;
+            height: 6px;
+            border-radius: 50%;
+            background: #fff;
+            opacity: 0;
+            transition: opacity var(--tr);
+        }
+
+        .opt-card.selected .opt-radio::after {
+            opacity: 1;
+        }
+
+        .opt-body {
+            flex: 1;
+            min-width: 0;
+        }
+
+        .opt-title {
+            font-size: 14px;
+            font-weight: 600;
+            color: var(--ink);
+            line-height: 1.3;
+        }
+
+        .opt-desc {
+            font-size: 12px;
+            color: var(--ink-3);
+            margin-top: 2px;
+        }
+
+        .opt-card.selected .opt-title {
+            color: var(--rust);
+        }
+
+        .opt-card.selected .opt-desc {
+            color: var(--rust-mid);
+        }
+
+        .opt-card input[type=radio] {
+            position: absolute;
+            opacity: 0;
+            pointer-events: none;
+            width: 0;
+            height: 0;
+        }
+
+        /* ══════════════════════════════════════════
+           CONDITIONAL BLOCK
+        ══════════════════════════════════════════ */
+        .cond-block {
+            display: none;
+            margin-top: 12px;
+            padding: 14px 16px;
+            background: var(--rust-pale);
+            border: 1px solid #e8c4c4;
+            border-radius: var(--radius-sm);
+            animation: slideDown 0.2s ease;
+        }
+
+        .cond-block.show {
+            display: block;
+        }
+
+        .cond-title {
+            font-size: 11px;
+            font-weight: 700;
+            color: var(--rust);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .cond-title::before {
+            content: '';
+            display: inline-block;
+            width: 3px;
+            height: 12px;
+            background: var(--rust);
+            border-radius: 2px;
+        }
+
+        .cond-block .field {
+            margin-bottom: 12px;
+        }
+
+        .cond-block .field:last-child {
+            margin-bottom: 0;
+        }
+
+        @keyframes slideDown {
+            from {
+                opacity: 0;
+                transform: translateY(-6px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* ══════════════════════════════════════════
+           QUANTITY STEPPER
+        ══════════════════════════════════════════ */
+        .qty-row {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            flex-wrap: wrap;
+        }
+
+        .qty-stepper {
+            display: flex;
+            align-items: center;
+            border: 1.5px solid var(--border);
+            border-radius: 9px;
+            overflow: hidden;
+        }
+
+        .qty-btn {
+            background: var(--rust-pale);
+            border: none;
+            width: 44px;
+            height: 44px;
+            font-size: 1.3rem;
+            font-weight: 700;
+            color: var(--rust);
+            cursor: pointer;
+            transition: background var(--tr);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .qty-btn:hover:not(:disabled) {
+            background: var(--rust-light);
+        }
+
+        .qty-btn:disabled {
+            color: var(--ink-3);
+            cursor: not-allowed;
+            background: #f5f5f5;
+        }
+
+        .qty-display {
+            min-width: 56px;
+            text-align: center;
+            font-size: 1.3rem;
+            font-weight: 700;
+            color: var(--rust);
+            padding: 0 8px;
+        }
+
+        .qty-total-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: var(--gold-pale);
+            border: 1px solid #f0d090;
+            border-radius: var(--radius-sm);
+            padding: 10px 14px;
+            margin-top: 12px;
+        }
+
+        .qty-total-label {
+            font-size: 13px;
+            color: var(--ink-2);
+            font-weight: 500;
+        }
+
+        .qty-total-amount {
+            font-size: 22px;
+            font-weight: 700;
+            color: var(--rust);
+        }
+
+        /* ══════════════════════════════════════════
+           BANK BOX
+        ══════════════════════════════════════════ */
+        .bank-box {
+            background: var(--gold-pale);
+            border: 1px solid #f0d090;
+            border-radius: var(--radius-sm);
+            padding: 13px 15px;
+            margin-bottom: 14px;
+            font-size: 12.5px;
+            color: var(--ink-2);
+            line-height: 1.8;
+        }
+
+        .bank-box strong {
+            color: var(--gold);
+        }
+
+        .bank-account {
+            font-size: 20px;
+            font-weight: 700;
+            color: var(--gold);
+            letter-spacing: 2px;
+            margin: 4px 0;
+        }
+
+        /* ══════════════════════════════════════════
+           UPLOAD ZONE
+        ══════════════════════════════════════════ */
+        .upload-zone {
+            border: 2px dashed var(--border);
+            border-radius: var(--radius);
+            padding: 22px 18px;
+            text-align: center;
+            cursor: pointer;
+            transition: all var(--tr);
+            background: var(--paper);
+        }
+
+        .upload-zone:hover,
+        .upload-zone.dragover {
+            border-color: var(--rust-mid);
+            background: var(--rust-pale);
+        }
+
+        .upload-zone.has-file {
+            border-style: solid;
+            border-color: var(--success);
+            background: #f4fbf4;
+        }
+
+        .upload-icon {
+            font-size: 24px;
+            margin-bottom: 6px;
+        }
+
+        .upload-label {
+            font-size: 13px;
+            font-weight: 600;
+            color: var(--ink-2);
+        }
+
+        .upload-sub {
+            font-size: 11px;
+            color: var(--ink-3);
+            margin-top: 3px;
+        }
+
+        .upload-name {
+            font-size: 12px;
+            font-weight: 600;
+            color: var(--success);
+            margin-top: 8px;
+            display: none;
+        }
+
+        /* ══════════════════════════════════════════
+           STICKY BOTTOM NAV
+        ══════════════════════════════════════════ */
+        .bottom-nav {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: #fff;
+            border-top: 1px solid var(--border);
+            padding: 12px 18px;
+            padding-bottom: calc(12px + env(safe-area-inset-bottom));
+            z-index: 999;
+        }
+
+        .bottom-nav-inner {
+            max-width: 640px;
+            margin: 0 auto;
+            display: flex;
+            gap: 10px;
+            align-items: center;
+        }
+
+        .btn-back {
+            padding: 13px 18px;
+            border: 1.5px solid var(--border);
+            border-radius: var(--radius);
+            background: #fff;
+            color: var(--ink-2);
+            font-family: var(--font);
+            font-size: 14px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all var(--tr);
+            white-space: nowrap;
+            flex-shrink: 0;
+        }
+
+        .btn-back:hover {
+            background: var(--paper);
+            border-color: #bbb;
+        }
+
+        .btn-next {
+            flex: 1;
+            padding: 13px 24px;
+            border: none;
+            border-radius: var(--radius);
+            background: var(--rust);
+            color: #fff;
+            font-family: var(--font);
+            font-size: 15px;
+            font-weight: 700;
+            cursor: pointer;
+            box-shadow: 0 4px 14px rgba(139, 26, 26, 0.28);
+            transition: all var(--tr);
+            letter-spacing: 0.3px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+        }
+
+        .btn-next:hover {
+            background: var(--rust-mid);
+        }
+
+        .btn-next:active {
+            transform: scale(0.99);
+        }
+
+        .btn-next:disabled {
+            background: #aaa;
+            box-shadow: none;
+            cursor: not-allowed;
+        }
+
+        /* ══════════════════════════════════════════
+           SUBMIT NOTICE
+        ══════════════════════════════════════════ */
+        .submit-notice {
+            background: #fffbf0;
+            border: 1px solid #f0d98a;
+            border-radius: var(--radius-sm);
+            padding: 10px 14px;
+            font-size: 12px;
+            color: #7a5f00;
+            text-align: center;
+            margin-bottom: 14px;
+        }
+
+        /* ══════════════════════════════════════════
+           LANDING SCREEN
+        ══════════════════════════════════════════ */
+        .landing-screen {
+            display: none;
+        }
+
+        .landing-screen.active {
+            display: block;
+        }
+
+        .landing-hero {
+            background: linear-gradient(160deg, var(--rust) 0%, #4a0e0e 100%);
+            padding: 28px 20px 24px;
+            text-align: center;
+        }
+
+        .landing-hero img {
+            width: 100%;
+            max-width: 560px;
+            border-radius: var(--radius);
+            display: block;
+            margin: 0 auto 20px;
+            box-shadow: 0 4px 16px rgba(0, 0, 0, 0.30);
+        }
+
+        .landing-hero-title {
+            font-family: var(--serif);
+            font-size: 24px;
+            font-weight: 700;
+            color: #fff;
+            line-height: 1.35;
+            margin-bottom: 6px;
+        }
+
+        .landing-hero-sub {
+            font-size: 13px;
+            color: rgba(255, 255, 255, 0.75);
+            margin-bottom: 16px;
+        }
+
+        .landing-pills {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 8px;
+            margin-bottom: 24px;
+        }
+
+        .landing-pill {
+            background: rgba(255, 255, 255, 0.12);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 20px;
+            padding: 5px 12px;
+            font-size: 11.5px;
+            color: rgba(255, 255, 255, 0.9);
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+
+        .landing-pill strong {
+            color: #ffd280;
+        }
+
+        .btn-register {
+            display: block;
+            width: 100%;
+            max-width: 360px;
+            margin: 0 auto;
+            padding: 15px 28px;
+            background: #fff;
+            color: var(--rust);
+            font-family: var(--font);
+            font-size: 16px;
+            font-weight: 700;
+            border: none;
+            border-radius: var(--radius);
+            cursor: pointer;
+            box-shadow: 0 4px 18px rgba(0, 0, 0, 0.2);
+            transition: all 0.18s ease;
+            letter-spacing: 0.3px;
+        }
+
+        .btn-register:hover {
+            background: var(--rust-light);
+            transform: translateY(-1px);
+        }
+
+        .landing-body {
+            max-width: 640px;
+            margin: 0 auto;
+            padding: 20px 18px 120px;
+        }
+
+        .landing-section {
+            background: #fff;
+            border: 1px solid var(--border);
+            border-radius: var(--radius);
+            padding: 20px;
+            margin-bottom: 14px;
+            box-shadow: 0 1px 4px rgba(0, 0, 0, 0.06);
+        }
+
+        .landing-section-title {
+            font-size: 10px;
+            font-weight: 700;
+            color: var(--rust);
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            border-left: 3px solid var(--rust);
+            padding-left: 7px;
+            margin-bottom: 14px;
+        }
+
+        .landing-section-title.gold {
+            color: var(--gold);
+            border-color: var(--gold);
+        }
+
+        .landing-section-title.warn {
+            color: #c05020;
+            border-color: #c05020;
+        }
+
+        .course-items {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .course-item {
+            display: flex;
+            gap: 11px;
+            align-items: flex-start;
+            font-size: 13px;
+            color: var(--ink-2);
+            line-height: 1.65;
+        }
+
+        .course-item-icon {
+            font-size: 16px;
+            flex-shrink: 0;
+            margin-top: 1px;
+        }
+
+        .notice-items {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .notice-item {
+            display: flex;
+            gap: 10px;
+            align-items: flex-start;
+            font-size: 12.5px;
+            color: var(--ink-2);
+            line-height: 1.7;
+        }
+
+        .notice-dot {
+            width: 6px;
+            height: 6px;
+            border-radius: 50%;
+            background: var(--rust);
+            flex-shrink: 0;
+            margin-top: 7px;
+        }
+
+        .notice-dot.gold {
+            background: var(--gold);
+        }
+
+        .landing-cta-bottom {
+            background: var(--rust-pale);
+            border: 1px solid #e8c4c4;
+            border-radius: var(--radius);
+            padding: 18px 20px;
+            text-align: center;
+            margin-bottom: 14px;
+        }
+
+        .landing-cta-bottom p {
+            font-size: 13px;
+            color: var(--ink-2);
+            margin-bottom: 14px;
+            line-height: 1.6;
+        }
+
+        .landing-cta-bottom p strong {
+            color: var(--rust);
+        }
+
+        /* ══════════════════════════════════════════
+           REVIEW CARD (step 2)
+        ══════════════════════════════════════════ */
+        .review-card {
+            background: var(--rust-pale);
+            border: 1px solid #e8c4c4;
+            border-radius: var(--radius);
+            padding: 16px 18px;
+            margin-bottom: 14px;
+        }
+
+        .review-title {
+            font-size: 11px;
+            font-weight: 700;
+            color: var(--rust);
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            margin-bottom: 10px;
+        }
+
+        .review-row {
+            display: flex;
+            gap: 8px;
+            font-size: 12.5px;
+            padding: 5px 0;
+            border-bottom: 1px solid #f0d0d0;
+        }
+
+        .review-row:last-child {
+            border-bottom: none;
+        }
+
+        .review-k {
+            min-width: 90px;
+            color: var(--ink-3);
+            font-weight: 500;
+            flex-shrink: 0;
+        }
+
+        .review-v {
+            color: var(--ink);
+            font-weight: 500;
+        }
+
+        /* ══════════════════════════════════════════
+           SUCCESS SCREEN
+        ══════════════════════════════════════════ */
+        .success-screen {
+            display: none;
+            text-align: center;
+            padding: 32px 20px 20px;
+        }
+
+        .success-screen.show {
+            display: block;
+        }
+
+        .success-icon {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            background: #edf7ed;
+            border: 2px solid #a8d5a8;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 16px;
+        }
+
+        .success-icon svg {
+            width: 28px;
+            height: 28px;
+            stroke: var(--success);
+            fill: none;
+            stroke-width: 2.5;
+            stroke-linecap: round;
+            stroke-linejoin: round;
+        }
+
+        .success-id {
+            font-family: var(--serif);
+            font-size: 20px;
+            font-weight: 600;
+            color: var(--rust);
+            letter-spacing: 2px;
+            margin: 8px 0;
+        }
+
+        .success-actions {
+            display: flex;
+            gap: 10px;
+            margin-top: 20px;
+        }
+
+        .btn-outline {
+            flex: 1;
+            padding: 12px;
+            border: 1.5px solid var(--rust);
+            border-radius: var(--radius);
+            background: #fff;
+            color: var(--rust);
+            font-size: 13px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all var(--tr);
+        }
+
+        .btn-outline:hover {
+            background: var(--rust-light);
+        }
+
+        .btn-green {
+            flex: 1;
+            padding: 12px;
+            border: none;
+            border-radius: var(--radius);
+            background: var(--success);
+            color: #fff;
+            font-size: 13px;
+            font-weight: 600;
+            cursor: pointer;
+        }
+
+        /* ── PRINT ── */
+        #printReceipt {
+            display: none;
+        }
+
+        @media print {
+            body>* {
+                display: none !important;
+            }
+
+            #printReceipt {
+                display: block !important;
+                padding: 30px;
+                font-family: Arial, sans-serif;
+                font-size: 13px;
+                color: #000;
+                max-width: 700px;
+                margin: auto;
+            }
+
+            .pr-header {
+                text-align: center;
+                margin-bottom: 20px;
+            }
+
+            .pr-header h1 {
+                font-size: 18px;
+                font-weight: 700;
+            }
+
+            .pr-row {
+                display: flex;
+                gap: 8px;
+                padding: 4px 0;
+                border-bottom: 1px solid #eee;
+            }
+
+            .pr-k {
+                font-weight: 600;
+                min-width: 130px;
+                color: #666;
+            }
+
+            .pr-footer {
+                text-align: center;
+                font-size: 11px;
+                margin-top: 20px;
+                color: #888;
+            }
+
+            @page {
+                margin: 10mm;
+                size: A4;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- LOADING -->
+    <div class="loading-overlay" id="loadingOverlay">
+        <div class="spinner"></div>
+        <div class="loading-text">正在提交，请稍候…</div>
+    </div>
+
+    <!-- PRINT -->
+    <div id="printReceipt"></div>
+
+    <!-- ══ BANNER ══ -->
+    <div class="banner">
+        <div class="banner-inner">
+            <div class="banner-glyph">🏮</div>
+            <div class="banner-text">
+                <div class="banner-title">灵鹫山马来西亚佛学会</div>
+                <div class="banner-sub">中秋园游建寺义卖会 · 2026</div>
+            </div>
+            <div class="banner-badge">RM 50 / 本</div>
+        </div>
+        <div class="info-strip">
+            <div class="info-strip-inner">
+                <div class="info-item">📅 <strong>12.9.2026</strong></div>
+                <div class="info-item">⏰ 下午 <strong>3:00PM</strong></div>
+                <div class="info-item">📍 Taman Wawasan, Puchong</div>
+                <div class="info-item">📞 <strong>016-276 8093</strong></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ══ PROGRESS BAR ══ -->
+    <div class="progress-bar hidden" id="progressBar">
+        <div class="progress-inner">
+            <div class="step-node active" id="pnode-1">
+                <div class="step-dot" id="pdot-1">1</div>
+                <div class="step-label">联系资料</div>
+            </div>
+            <div class="step-node" id="pnode-2">
+                <div class="step-dot" id="pdot-2">2</div>
+                <div class="step-label">付款确认</div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ══ FORM ══ -->
+    <div class="form-outer">
+
+        <!-- SUCCESS -->
+        <div class="success-screen" id="successScreen">
+            <div class="success-icon">
+                <svg viewBox="0 0 24 24">
+                    <polyline points="20 6 9 17 4 12" />
+                </svg>
+            </div>
+            <div
+                style="font-size:11px;font-weight:700;letter-spacing:.1em;color:var(--ink-3);text-transform:uppercase;margin-bottom:4px;">
+                登记成功</div>
+            <h2 style="font-size:22px;font-weight:700;color:var(--ink);">感恩您的护持！</h2>
+            <div class="success-id" id="successId">-</div>
+            <p style="font-size:13px;color:var(--ink-2);line-height:1.7;margin-top:6px;">确认邮件已发送</p>
+            <div style="background:#f5f5f5;border-radius:var(--radius);padding:14px;margin-top:16px;"
+                id="successSummary"></div>
+            <p style="font-size:11px;color:var(--ink-3);margin-top:10px;" id="successTime"></p>
+            <div class="success-actions">
+                <button class="btn-outline" onclick="doPrint()">🖨 下载收据</button>
+                <button class="btn-green" onclick="resetForm()">完成 →</button>
+            </div>
+        </div>
+
+        <!-- ══ LANDING (step 0) ══ -->
+        <div class="landing-screen active" id="landingScreen">
+            <div class="landing-hero">
+                <div class="landing-hero-title">🏮 中秋园游建寺义卖会 🌕</div>
+                <div class="landing-hero-sub">灵鹫山马来西亚佛学会 · 2026</div>
+                <div class="landing-pills">
+                    <div class="landing-pill">📅 <strong>12.9.2026 (周六)</strong></div>
+                    <div class="landing-pill">🎪 义卖：<strong>3PM – 7PM</strong></div>
+                    <div class="landing-pill">🎑 节目：<strong>7PM – 9PM</strong></div>
+                    <div class="landing-pill">💰 固本 <strong>RM 50 / 本</strong></div>
+                </div>
+            </div>
+
+            <div class="landing-body">
+                <div class="landing-section">
+                    <div class="landing-section-title">📍 活动详情</div>
+                    <div class="course-items">
+                        <div class="course-item"><span class="course-item-icon">🗺️</span><span>Taman Wawasan
+                                Recreational Park Puchong，47100 Selangor</span></div>
+                        <div class="course-item"><span class="course-item-icon">🏮</span><span>3pm –
+                                7pm：中秋园游义卖会，携手护持建寺，共植福田。</span></div>
+                        <div class="course-item"><span class="course-item-icon">🌕</span><span>7pm –
+                                9pm：中秋节目活动，欢聚一堂，月圆人团圆。</span></div>
+                        <div class="course-item"><span class="course-item-icon">🏢</span><span>主办单位：靈鷲山馬來西亞佛學會</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="landing-section">
+                    <div class="landing-section-title gold">🎟️ 关于固本</div>
+                    <div class="course-items">
+                        <div class="course-item"><span class="course-item-icon">💰</span><span>每本 <strong>RM
+                                    50.00</strong>，善款全数用于建寺护持，功德无量。</span></div>
+                        <div class="course-item"><span
+                                class="course-item-icon">📦</span><span>固本可于活动当天柜台领取，或向您的劝募人领取。</span></div>
+                        <div class="course-item"><span class="course-item-icon">🙏</span><span>亦可选择不领取固本，直接护持建寺。</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="landing-section">
+                    <div class="landing-section-title warn">⚠️ 报名注意事项</div>
+                    <div class="notice-items">
+                        <div class="notice-item">
+                            <div class="notice-dot gold"></div><span>请确保汇款后上传正确付款凭证，系统将自动发出确认电邮。</span>
+                        </div>
+                        <div class="notice-item">
+                            <div class="notice-dot"></div><span>如有疑问，请联络：美珠 016-276 8093 / 若冰 012-673 9431</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="landing-cta-bottom">
+                    <p>费用：<strong>RM 50.00 / 本</strong><br>洽询：<strong>美珠 016-276 8093</strong> · <strong>若冰 012-673
+                            9431</strong></p>
+                    <button class="btn-register" onclick="startRegistration()">立即购买固本 →</button>
+                </div>
+            </div>
+        </div><!-- /landingScreen -->
+
+        <!-- ══ WIZARD PANELS ══ -->
+        <div id="wizardPanels" style="display:none;">
+
+            <!-- ═══════════════
+                 STEP 1 — 联系资料 + 固本选择
+            ═══════════════ -->
+            <div class="step-panel active" id="step-1">
+                <div class="step-header">
+                    <span class="step-number">第 1 步，共 2 步</span>
+                    <div class="step-heading">
+                        <h2>联系资料与固本选购</h2>
+                        <p>请填写购买者资料、数量及领取方式</p>
+                    </div>
+                </div>
+
+                <!-- Contact -->
+                <div class="form-card">
+                    <div class="card-label">购买者联系资料</div>
+
+                    <div class="field">
+                        <label class="req" for="name">姓名（中文全名）</label>
+                        <p class="field-hint">请填写简体中文全名</p>
+                        <input type="text" id="name" autocomplete="name" placeholder="例：陈大明">
+                        <div class="err-msg" id="err-name"></div>
+                    </div>
+
+                    <div class="field">
+                        <label class="req" for="phone">联络电话</label>
+                        <p class="field-hint">请填写有效手机号码（无需空格或"-"）</p>
+                        <input type="tel" id="phone" autocomplete="tel" placeholder="例：0123456789"
+                            oninput="formatPhone(this)">
+                        <div class="err-msg" id="err-phone"></div>
+                    </div>
+
+                    <div class="field" style="margin-bottom:0">
+                        <label class="req" for="email">电子邮件</label>
+                        <input type="email" id="email" autocomplete="email" placeholder="例：abc@email.com">
+                        <div class="err-msg" id="err-email"></div>
+                    </div>
+                </div>
+
+                <!-- Quantity -->
+                <div class="form-card">
+                    <div class="card-label">固本购买数量</div>
+
+                    <div class="field">
+                        <div
+                            style="background:var(--gold-pale);border:1px solid #f0d090;border-radius:var(--radius-sm);padding:12px 14px;margin-bottom:14px;">
+                            <div style="font-size:14px;font-weight:700;color:var(--gold);">🎟️ 中秋园游建寺义卖固本</div>
+                            <div style="font-size:12px;color:var(--ink-3);margin-top:2px;">每本 RM 50 · 支持建寺护持功德</div>
+                        </div>
+                        <label class="req">购买数量 <span style="font-size:11px;color:var(--ink-3);font-weight:400;">（最多 20
+                                本）</span></label>
+                        <div class="qty-row">
+                            <div class="qty-stepper">
+                                <button type="button" class="qty-btn" id="qtyMinus" onclick="changeQty(-1)">−</button>
+                                <div class="qty-display" id="qtyDisplay">1</div>
+                                <button type="button" class="qty-btn" id="qtyPlus" onclick="changeQty(1)">+</button>
+                            </div>
+                            <span style="font-size:13px;color:var(--ink-3);">本固本</span>
+                        </div>
+                        <div class="qty-total-row">
+                            <span class="qty-total-label">应付总额</span>
+                            <span class="qty-total-amount" id="totalDisplay">RM 50.00</span>
+                        </div>
+                        <div class="err-msg" id="err-qty"></div>
+                    </div>
+                </div>
+
+                <!-- Pickup method -->
+                <div class="form-card">
+                    <div class="card-label">领取固本方式</div>
+
+                    <div class="field" style="margin-bottom:0">
+                        <label class="req">请选择领取方式</label>
+                        <div class="card-options" id="opts-pickup">
+                            <div class="opt-card" data-group="pickup" data-value="counter"
+                                onclick="selectOpt(this);onPickupChange()">
+                                <div class="opt-radio"></div>
+                                <input type="radio" name="pickup" value="counter">
+                                <div class="opt-body">
+                                    <div class="opt-title">🏪 当天到柜台领取</div>
+                                    <div class="opt-desc">活动当天 (12/9/2026) 于现场柜台领取固本</div>
+                                </div>
+                            </div>
+                            <div class="opt-card" data-group="pickup" data-value="recruiter"
+                                onclick="selectOpt(this);onPickupChange()">
+                                <div class="opt-radio"></div>
+                                <input type="radio" name="pickup" value="recruiter">
+                                <div class="opt-body">
+                                    <div class="opt-title">🤝 向劝募人领取</div>
+                                    <div class="opt-desc">请于下方填写劝募人姓名</div>
+                                </div>
+                            </div>
+                            <div class="opt-card" data-group="pickup" data-value="donate"
+                                onclick="selectOpt(this);onPickupChange()">
+                                <div class="opt-radio"></div>
+                                <input type="radio" name="pickup" value="donate">
+                                <div class="opt-body">
+                                    <div class="opt-title">🙏 不领取固本 — 我要护持建寺</div>
+                                    <div class="opt-desc">直接护持，不领取固本，功德无量</div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="err-msg" id="err-pickup"></div>
+
+                        <!-- Conditional: recruiter name -->
+                        <div class="cond-block" id="cond-recruiter">
+                            <div class="cond-title">劝募人资料</div>
+                            <div class="field" style="margin-bottom:0">
+                                <label class="req" for="recruiter_name">劝募人姓名（中文）</label>
+                                <input type="text" id="recruiter_name" placeholder="请填写劝募人中文全名">
+                                <div class="err-msg" id="err-recruiter_name"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div><!-- /step-1 -->
+
+
+            <!-- ═══════════════
+                 STEP 2 — 付款确认
+            ═══════════════ -->
+            <div class="step-panel" id="step-2">
+                <div class="step-header">
+                    <span class="step-number">第 2 步，共 2 步</span>
+                    <div class="step-heading">
+                        <h2>付款确认</h2>
+                        <p>上传付款凭证，完成登记</p>
+                    </div>
+                </div>
+
+                <!-- Mini review -->
+                <div class="review-card" id="reviewCard">
+                    <div class="review-title">📋 资料摘要</div>
+                    <div id="reviewRows"></div>
+                </div>
+
+                <!-- Bank -->
+                <div class="form-card">
+                    <div class="card-label">转账资料</div>
+                    <div class="bank-box">
+                        请转账 <strong id="bankAmount">RM 50.00</strong> 至：<br>
+                        <div class="bank-account">00300-6530-23</div>
+                        银行：<strong>HONG LEONG BANK</strong><br>
+                        户名：Persatuan Penganut Agama Buddha Ling Jiou San Malaysia
+                    </div>
+
+                    <div class="field" style="margin-bottom:0">
+                        <label class="req">上传付款截图（Bank In Slip）</label>
+                        <div class="upload-zone" id="uploadZone" onclick="document.getElementById('receipt').click()">
+                            <input type="file" id="receipt" style="display:none" accept="image/*,application/pdf">
+                            <div class="upload-icon">📎</div>
+                            <div class="upload-label">点击选择截图或拖放至此</div>
+                            <div class="upload-sub">JPG / PNG / PDF · 最大 10MB · 图片将自动转为 PDF</div>
+                            <div class="upload-name" id="uploadName"></div>
+                        </div>
+                        <div class="err-msg" id="err-receipt"></div>
+                    </div>
+                </div>
+
+                <div class="submit-notice">⚠️ 按一次 Submit 即可，耐心等待，请勿重复提交</div>
+
+            </div><!-- /step-2 -->
+
+        </div><!-- /wizardPanels -->
+    </div><!-- /form-outer -->
+
+    <!-- ══ STICKY BOTTOM NAV ══ -->
+    <div class="bottom-nav" id="bottomNav" style="display:none;">
+        <div class="bottom-nav-inner">
+            <button class="btn-back" id="btnBack" onclick="goBack()" style="display:none">← 上一步</button>
+            <button class="btn-next" id="btnNext" onclick="goNext()">下一步 →</button>
+        </div>
+    </div>
+
+    <script>
+        // ══════════════════════════════════════════════
+        // CONFIG
+        // ══════════════════════════════════════════════
+        const CONFIG = {
+            apiEndpoint: 'https://script.google.com/macros/s/AKfycbxJ3XWI4J1uYbZSndVel8uC0_-AcUcB9U_VNYz82NqAbnetp_7pl0Pd_RdL5KSGczE/exec',
+            eventName: '中秋园游建寺义卖会 2026',
+            organiser: '灵鹫山马来西亚佛学会',
+            eventDate: '2026年9月12日',
+            pricePerBook: 50,
+            maxQty: 20,
+            receiptMaxMB: 10,
+            contactPhone: '016-276 8093',
+            deadline: new Date('2026-08-31T23:59:00+08:00'),
+        };
+
+        // ── STATE ──
+        let currentStep = 0;
+        let currentQty = 1;
+        let receiptFileName = null, receiptFileType = null, currentReceiptData = null;
+
+        // ══════════════════════════════════════════════
+        // SELECTABLE OPT CARD SYSTEM
+        // ══════════════════════════════════════════════
+        function selectOpt(card) {
+            const group = card.dataset.group;
+            document.querySelectorAll(`.opt-card[data-group="${group}"]`).forEach(c => {
+                c.classList.remove('selected');
+                const r = c.querySelector('input[type=radio]');
+                if (r) r.checked = false;
+            });
+            card.classList.add('selected');
+            const radio = card.querySelector('input[type=radio]');
+            if (radio) radio.checked = true;
+            clearErr(group);
+        }
+
+        function rv(name) {
+            const r = document.querySelector(`input[name="${name}"]:checked`);
+            return r ? r.value : '';
+        }
+        function v(id) { return (document.getElementById(id) || {}).value || ''; }
+
+        // ══════════════════════════════════════════════
+        // QUANTITY STEPPER
+        // ══════════════════════════════════════════════
+        function changeQty(delta) {
+            const nq = currentQty + delta;
+            if (nq < 1 || nq > CONFIG.maxQty) return;
+            currentQty = nq;
+            document.getElementById('qtyDisplay').textContent = currentQty;
+            document.getElementById('qtyMinus').disabled = (currentQty <= 1);
+            document.getElementById('qtyPlus').disabled = (currentQty >= CONFIG.maxQty);
+            const total = (currentQty * CONFIG.pricePerBook).toFixed(2);
+            document.getElementById('totalDisplay').textContent = 'RM ' + total;
+            document.getElementById('bankAmount').textContent = 'RM ' + total;
+            clearErr('qty');
+        }
+
+        // ══════════════════════════════════════════════
+        // PICKUP CONDITIONAL
+        // ══════════════════════════════════════════════
+        function onPickupChange() {
+            const val = rv('pickup');
+            const b = document.getElementById('cond-recruiter');
+            const show = (val === 'recruiter');
+            b.classList.toggle('show', show);
+            if (!show) {
+                document.getElementById('recruiter_name').value = '';
+                clearErr('recruiter_name');
+            }
+        }
+
+        // ══════════════════════════════════════════════
+        // CHINESE NAME VALIDATION
+        // ══════════════════════════════════════════════
+        const CN_RE = /^[\u4E00-\u9FFF\u3400-\u4DBF·•]+$/u;
+        function stripNonChinese(s) { return s.replace(/[^\u4E00-\u9FFF\u3400-\u4DBF·•]/gu, ''); }
+
+        function attachCN(id, errId) {
+            const el = document.getElementById(id);
+            if (!el) return;
+            let composing = false;
+            el.addEventListener('compositionstart', () => composing = true);
+            el.addEventListener('compositionend', () => {
+                composing = false;
+                const c = stripNonChinese(el.value); if (el.value !== c) el.value = c;
+                validateCN(el, errId);
+            });
+            el.addEventListener('input', e => {
+                if (composing || e.isComposing) return;
+                const c = stripNonChinese(el.value); if (el.value !== c) el.value = c;
+            });
+            el.addEventListener('blur', () => {
+                composing = false;
+                const c = stripNonChinese(el.value); if (el.value !== c) el.value = c;
+                validateCN(el, errId);
+            });
+        }
+
+        function validateCN(el, errId, label) {
+            const val = el.value.trim();
+            const name = label || '此栏位';
+            if (!val) { showErrEl(el, errId, `请填写${name}（必填）。`); return false; }
+            if (!CN_RE.test(val)) { showErrEl(el, errId, `请输入纯中文（${name}不含英文、数字或符号）。`); return false; }
+            clearErrEl(el, errId); return true;
+        }
+
+        function formatPhone(input) {
+            let val = input.value.replace(/[\s\-]/g, '').replace(/[^\d+]/g, '');
+            input.value = val.startsWith('+')
+                ? '+' + val.slice(1).replace(/\D/g, '').slice(0, 12)
+                : val.slice(0, 11);
+        }
+
+        // ══════════════════════════════════════════════
+        // ERROR HELPERS
+        // ══════════════════════════════════════════════
+        function showErrEl(el, errId, msg) {
+            const e = document.getElementById(errId);
+            if (e) { e.textContent = msg; e.classList.add('show'); }
+            if (el) { el.classList.add('invalid'); el.classList.remove('valid'); }
+        }
+        function clearErrEl(el, errId) {
+            const e = document.getElementById(errId);
+            if (e) { e.textContent = ''; e.classList.remove('show'); }
+            if (el) { el.classList.remove('invalid'); el.classList.add('valid'); }
+        }
+        function showErr(id, msg) {
+            const e = document.getElementById('err-' + id);
+            const el = document.getElementById(id);
+            if (e) { e.textContent = msg; e.classList.add('show'); }
+            if (el) { el.classList.add('invalid'); el.classList.remove('valid'); }
+        }
+        function clearErr(id) {
+            const e = document.getElementById('err-' + id);
+            const el = document.getElementById(id);
+            if (e) { e.textContent = ''; e.classList.remove('show'); }
+            if (el) { el.classList.remove('invalid'); }
+        }
+        function scrollToFirstErr() {
+            const el = document.querySelector('.err-msg.show, .invalid');
+            if (el) el.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        }
+
+        // ══════════════════════════════════════════════
+        // VALIDATION PER STEP
+        // ══════════════════════════════════════════════
+        function validateStep1() {
+            let ok = true;
+
+            // Name — Chinese only, strip + validate
+            const nameEl = document.getElementById('name');
+            if (!validateCN(nameEl, 'err-name', '姓名')) ok = false;
+
+            // Phone
+            const ph = v('phone').replace(/[\s\-]/g, '');
+            if (!ph || !/^\+?\d{10,13}$/.test(ph)) {
+                showErr('phone', '请输入有效手机号码。'); ok = false;
+            } else clearErr('phone');
+
+            // Email
+            const em = v('email');
+            if (!em || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(em)) {
+                showErr('email', '请输入有效电子邮件。'); ok = false;
+            } else clearErr('email');
+
+            // Quantity — always ≥1, stepper enforces it, but sanity check
+            if (currentQty < 1 || currentQty > CONFIG.maxQty) {
+                showErr('qty', '请选择有效购买数量。'); ok = false;
+            } else clearErr('qty');
+
+            // Pickup method
+            if (!rv('pickup')) {
+                showErr('pickup', '请选择领取固本方式。'); ok = false;
+            } else clearErr('pickup');
+
+            // Recruiter name (only if recruiter selected)
+            if (rv('pickup') === 'recruiter') {
+                const rnEl = document.getElementById('recruiter_name');
+                if (!validateCN(rnEl, 'err-recruiter_name', '劝募人姓名')) ok = false;
+            }
+
+            if (!ok) scrollToFirstErr();
+            return ok;
+        }
+
+        function validateStep2() {
+            if (!currentReceiptData) {
+                showErr('receipt', '请上传付款凭证。'); return false;
+            }
+            clearErr('receipt'); return true;
+        }
+
+        // ══════════════════════════════════════════════
+        // REVIEW SUMMARY
+        // ══════════════════════════════════════════════
+        const PICKUP_LABELS = {
+            counter: '当天到柜台领取',
+            recruiter: '向劝募人领取',
+            donate: '不领取（护持建寺）',
+        };
+
+        function buildReview() {
+            const pickupVal = rv('pickup');
+            const pickupFull = pickupVal === 'recruiter' && v('recruiter_name')
+                ? `向劝募人领取（${v('recruiter_name')}）`
+                : PICKUP_LABELS[pickupVal] || pickupVal;
+
+            const total = 'RM ' + (currentQty * CONFIG.pricePerBook).toFixed(2);
+
+            const rows = [
+                ['姓名', v('name')],
+                ['电话', v('phone')],
+                ['邮箱', v('email')],
+                ['固本数量', currentQty + ' 本'],
+                ['应付总额', total],
+                ['领取方式', pickupFull],
+            ];
+
+            document.getElementById('reviewRows').innerHTML = rows.map(([k, val]) =>
+                `<div class="review-row"><span class="review-k">${k}</span><span class="review-v">${val || '-'}</span></div>`
+            ).join('');
+
+            // Also update bank amount display
+            document.getElementById('bankAmount').textContent = total;
+        }
+
+        // ══════════════════════════════════════════════
+        // RECEIPT UPLOAD (with image→PDF conversion)
+        // ══════════════════════════════════════════════
+        document.getElementById('receipt').addEventListener('change', async function () {
+            const file = this.files[0];
+            if (!file) return;
+            if (file.size > CONFIG.receiptMaxMB * 1024 * 1024) {
+                showErr('receipt', `文件大小不能超过 ${CONFIG.receiptMaxMB}MB。`);
+                this.value = ''; return;
+            }
+            clearErr('receipt');
+
+            const zone = document.getElementById('uploadZone');
+            const nameEl = document.getElementById('uploadName');
+
+            try {
+                if (file.type.startsWith('image/')) {
+                    // Convert image to PDF in-browser
+                    nameEl.textContent = '⏳ 转换中...';
+                    nameEl.style.display = 'block';
+                    const dataUrl = await readFileAsDataUrl(file);
+                    const pdfBase64 = await imageToPdfBase64(dataUrl);
+                    currentReceiptData = pdfBase64;
+                    receiptFileName = file.name.replace(/\.[^/.]+$/, '') + '_converted.pdf';
+                    receiptFileType = 'application/pdf';
+                    nameEl.textContent = '✓ ' + receiptFileName + ' (已转为 PDF)';
+                } else {
+                    // PDF or other — read as-is
+                    const dataUrl = await readFileAsDataUrl(file);
+                    currentReceiptData = dataUrl.split(',')[1];
+                    receiptFileName = file.name;
+                    receiptFileType = file.type;
+                    nameEl.textContent = '✓ ' + file.name;
+                }
+                nameEl.style.display = 'block';
+                zone.classList.add('has-file');
+            } catch (err) {
+                showErr('receipt', '文件读取失败：' + err.message);
+                this.value = '';
+            }
+        });
+
+        // Drag-and-drop
+        const uploadZone = document.getElementById('uploadZone');
+        uploadZone.addEventListener('dragover', e => { e.preventDefault(); uploadZone.classList.add('dragover'); });
+        uploadZone.addEventListener('dragleave', () => uploadZone.classList.remove('dragover'));
+        uploadZone.addEventListener('drop', e => {
+            e.preventDefault(); uploadZone.classList.remove('dragover');
+            const file = e.dataTransfer.files[0];
+            if (file) {
+                const dt = new DataTransfer(); dt.items.add(file);
+                document.getElementById('receipt').files = dt.files;
+                document.getElementById('receipt').dispatchEvent(new Event('change'));
+            }
+        });
+
+        // File helpers
+        function readFileAsDataUrl(file) {
+            return new Promise((res, rej) => {
+                const r = new FileReader();
+                r.onload = e => res(e.target.result);
+                r.onerror = () => rej(new Error('读取失败'));
+                r.readAsDataURL(file);
+            });
+        }
+
+        async function imageToPdfBase64(imageDataUrl) {
+            return new Promise((res, rej) => {
+                const img = new Image();
+                img.onload = () => {
+                    try {
+                        const A4W = 794, A4H = 1123, margin = 30;
+                        const canvas = document.createElement('canvas');
+                        canvas.width = A4W; canvas.height = A4H;
+                        const ctx = canvas.getContext('2d');
+                        ctx.fillStyle = '#fff'; ctx.fillRect(0, 0, A4W, A4H);
+                        const maxW = A4W - margin * 2, maxH = A4H - margin * 2;
+                        let dw = img.width, dh = img.height;
+                        if (dw > maxW) { dh = dh * (maxW / dw); dw = maxW; }
+                        if (dh > maxH) { dw = dw * (maxH / dh); dh = maxH; }
+                        ctx.drawImage(img, (A4W - dw) / 2, (A4H - dh) / 2, dw, dh);
+                        const jpegB64 = canvas.toDataURL('image/jpeg', 0.92).split(',')[1];
+                        res(buildMinimalPdf(jpegB64, A4W, A4H));
+                    } catch (e) { rej(e); }
+                };
+                img.onerror = () => rej(new Error('图片加载失败'));
+                img.src = imageDataUrl;
+            });
+        }
+
+        function buildMinimalPdf(jpegB64, w, h) {
+            const jBytes = atob(jpegB64);
+            const jLen = jBytes.length;
+            const PW = 595, PH = 842;
+            let p = '%PDF-1.4\n';
+            const o1 = p.length; p += '1 0 obj\n<< /Type /Catalog /Pages 2 0 R >>\nendobj\n';
+            const o2 = p.length; p += '2 0 obj\n<< /Type /Pages /Kids [3 0 R] /Count 1 >>\nendobj\n';
+            const o3 = p.length; p += `3 0 obj\n<< /Type /Page /Parent 2 0 R /MediaBox [0 0 ${PW} ${PH}] /Contents 4 0 R /Resources << /XObject << /Im1 5 0 R >> >> >>\nendobj\n`;
+            const pc = `q ${PW} 0 0 ${PH} 0 0 cm /Im1 Do Q`;
+            const o4 = p.length; p += `4 0 obj\n<< /Length ${pc.length} >>\nstream\n${pc}\nendstream\nendobj\n`;
+            const o5 = p.length; p += `5 0 obj\n<< /Type /XObject /Subtype /Image /Width ${w} /Height ${h} /ColorSpace /DeviceRGB /BitsPerComponent 8 /Filter /DCTDecode /Length ${jLen} >>\nstream\n`;
+            const foot = '\nendstream\nendobj\n';
+            const xOff = p.length + jLen + foot.length;
+            const xref = `xref\n0 6\n0000000000 65535 f \n${String(o1).padStart(10, '0')} 00000 n \n${String(o2).padStart(10, '0')} 00000 n \n${String(o3).padStart(10, '0')} 00000 n \n${String(o4).padStart(10, '0')} 00000 n \n${String(o5).padStart(10, '0')} 00000 n \ntrailer\n<< /Size 6 /Root 1 0 R >>\nstartxref\n${xOff}\n%%EOF`;
+            const total = p.length + jLen + foot.length + xref.length;
+            const buf = new Uint8Array(total);
+            let i = 0;
+            for (let j = 0; j < p.length; j++) buf[i++] = p.charCodeAt(j) & 0xff;
+            for (let j = 0; j < jLen; j++) buf[i++] = jBytes.charCodeAt(j) & 0xff;
+            for (let j = 0; j < foot.length; j++) buf[i++] = foot.charCodeAt(j) & 0xff;
+            for (let j = 0; j < xref.length; j++) buf[i++] = xref.charCodeAt(j) & 0xff;
+            let bin = ''; for (let j = 0; j < buf.length; j++) bin += String.fromCharCode(buf[j]);
+            return btoa(bin);
+        }
+
+        // ══════════════════════════════════════════════
+        // WIZARD NAV
+        // ══════════════════════════════════════════════
+        function goNext() {
+            if (currentStep === 1 && !validateStep1()) return;
+            if (currentStep === 2) { submitForm(); return; }
+            currentStep++;
+            showStep(currentStep);
+            if (currentStep === 2) buildReview();
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        function goBack() {
+            if (currentStep <= 1) {
+                document.getElementById('wizardPanels').style.display = 'none';
+                document.getElementById('progressBar').classList.add('hidden');
+                document.getElementById('bottomNav').style.display = 'none';
+                document.getElementById('landingScreen').classList.add('active');
+                currentStep = 0;
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+                return;
+            }
+            currentStep--;
+            showStep(currentStep);
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        function showStep(n) {
+            document.querySelectorAll('.step-panel').forEach((p, i) => {
+                p.classList.toggle('active', i + 1 === n);
+            });
+            [1, 2].forEach(i => {
+                const node = document.getElementById('pnode-' + i);
+                const dot = document.getElementById('pdot-' + i);
+                node.classList.remove('active', 'done');
+                if (i < n) { node.classList.add('done'); dot.textContent = '✓'; }
+                else if (i === n) { node.classList.add('active'); dot.textContent = i; }
+                else { dot.textContent = i; }
+            });
+            const btnBack = document.getElementById('btnBack');
+            const btnNext = document.getElementById('btnNext');
+            btnBack.style.display = 'block';
+            btnBack.textContent = n === 1 ? '← 返回' : '← 上一步';
+            btnNext.textContent = n === 2 ? '✓ 确认提交' : '下一步 →';
+        }
+
+        function startRegistration() {
+            document.getElementById('landingScreen').classList.remove('active');
+            document.getElementById('wizardPanels').style.display = 'block';
+            document.getElementById('progressBar').classList.remove('hidden');
+            document.getElementById('bottomNav').style.display = 'block';
+            currentStep = 1;
+            showStep(1);
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        // ══════════════════════════════════════════════
+        // SUBMIT
+        // ══════════════════════════════════════════════
+        async function submitForm() {
+            if (!validateStep2()) return;
+
+            const btn = document.getElementById('btnNext');
+            btn.disabled = true;
+
+            const pickupVal = rv('pickup');
+            const pickupFull = pickupVal === 'recruiter' && v('recruiter_name')
+                ? `向劝募人领取（${v('recruiter_name')}）`
+                : PICKUP_LABELS[pickupVal] || pickupVal;
+
+            const payload = {
+                timestamp: new Date().toISOString(),
+                name: v('name'),
+                phone: v('phone'),
+                email: v('email'),
+                quantity: currentQty,
+                total_amount: 'RM ' + (currentQty * CONFIG.pricePerBook).toFixed(2),
+                pickup_method: pickupVal,
+                pickup_label: pickupFull,
+                recruiter_name: pickupVal === 'recruiter' ? v('recruiter_name') : '',
+                receipt_filename: receiptFileName,
+                receipt_filetype: receiptFileType,
+                receipt_data: currentReceiptData,
+                event: CONFIG.eventName,
+            };
+
+            document.getElementById('loadingOverlay').classList.add('show');
+
+            try {
+                const resp = await fetch(CONFIG.apiEndpoint, { method: 'POST', body: JSON.stringify(payload) });
+                const data = await resp.json();
+                document.getElementById('loadingOverlay').classList.remove('show');
+                if (data.status === 'success' || data.result === 'success') {
+                    showSuccess(data, payload, pickupFull);
+                } else {
+                    btn.disabled = false;
+                    alert('提交失败，请稍后再试。\n' + (data.message || JSON.stringify(data)));
+                }
+            } catch (err) {
+                document.getElementById('loadingOverlay').classList.remove('show');
+                btn.disabled = false;
+                alert('网络错误，请检查连线后再试。\n' + err.message);
+            }
+        }
+
+        function showSuccess(data, payload, pickupFull) {
+            const regId = data.receiptId || ('MQ-' + Date.now().toString().slice(-6));
+            document.getElementById('successId').textContent = regId;
+            document.getElementById('successTime').textContent = '提交时间：' + new Date().toLocaleString('zh-MY');
+
+            document.getElementById('successSummary').innerHTML = `
+                <div style="text-align:left;font-size:12px;color:var(--ink-2);display:grid;gap:5px;">
+                    <div>🧧 姓名：<strong>${payload.name}</strong></div>
+                    <div>📞 电话：<strong>${payload.phone}</strong></div>
+                    <div>🎟️ 固本：<strong>${payload.quantity} 本</strong></div>
+                    <div>💰 总额：<strong>${payload.total_amount}</strong></div>
+                    <div>📦 领取：<strong>${pickupFull}</strong></div>
+                    <div>📅 活动：${CONFIG.eventDate}</div>
+                </div>`;
+
+            document.getElementById('wizardPanels').style.display = 'none';
+            document.getElementById('bottomNav').style.display = 'none';
+            document.getElementById('successScreen').classList.add('show');
+            buildPrintReceipt(regId, payload, pickupFull);
+        }
+
+        function buildPrintReceipt(regId, payload, pickupFull) {
+            document.getElementById('printReceipt').innerHTML = `
+                <div class="pr-header">
+                    <h1>${CONFIG.eventName} — 固本购买确认</h1>
+                    <h2>${CONFIG.organiser}</h2>
+                    <p style="font-size:11px;color:#888;margin-top:4px">编号：${regId} · ${new Date().toLocaleDateString('zh-MY')}</p>
+                </div>
+                <div class="pr-row"><span class="pr-k">姓名</span>${payload.name}</div>
+                <div class="pr-row"><span class="pr-k">电话</span>${payload.phone}</div>
+                <div class="pr-row"><span class="pr-k">电子邮件</span>${payload.email}</div>
+                <div class="pr-row"><span class="pr-k">固本数量</span>${payload.quantity} 本</div>
+                <div class="pr-row"><span class="pr-k">应付总额</span><strong>${payload.total_amount}</strong></div>
+                <div class="pr-row"><span class="pr-k">领取方式</span>${pickupFull}</div>
+                <div class="pr-row"><span class="pr-k">活动日期</span>${CONFIG.eventDate}</div>
+                <div class="pr-footer">如有疑问请联络 ${CONFIG.contactPhone}<br>感恩您的护持，功德无量 🙏</div>`;
+        }
+
+        function doPrint() { window.print(); }
+        function resetForm() { location.reload(); }
+
+        // ══════════════════════════════════════════════
+        // DEADLINE CHECK (calls API GET)
+        // ══════════════════════════════════════════════
+        (async function checkDeadline() {
+            if (new Date() > CONFIG.deadline) { showDeadlineBanner(); return; }
+            try {
+                const res = await fetch(CONFIG.apiEndpoint);
+                const data = await res.json();
+                if (data.closed) showDeadlineBanner();
+            } catch (e) { /* network fail → allow form */ }
+        })();
+
+        function showDeadlineBanner() {
+            document.body.innerHTML = `
+            <div style="min-height:100vh;background:var(--paper);display:flex;align-items:center;justify-content:center;padding:2rem;font-family:var(--font);">
+                <div style="background:#fff;border-radius:14px;box-shadow:0 8px 32px rgba(0,0,0,0.12);max-width:480px;width:100%;overflow:hidden;text-align:center;">
+                    <div style="background:var(--rust);padding:1.75rem 1.5rem 1.25rem;">
+                        <p style="margin:0 0 4px;color:#fff;font-size:1.1rem;font-weight:700;letter-spacing:3px;font-family:var(--serif);">靈鷲山佛教教團</p>
+                        <p style="margin:0;color:rgba(255,255,255,0.65);font-size:0.75rem;letter-spacing:2px;">Ling Jiou Mountain Buddhist Society</p>
+                    </div>
+                    <div style="padding:2rem 1.5rem 1rem;">
+                        <div style="font-size:3rem;margin-bottom:1rem;">🎑</div>
+                        <h1 style="font-size:1.4rem;font-weight:700;color:var(--rust);margin:0 0 0.5rem;">固本登记已截止</h1>
+                        <p style="font-size:0.9rem;color:var(--gold);font-weight:600;margin:0 0 1.25rem;">Registration Closed</p>
+                        <div style="background:var(--gold-pale);border:1px solid #f0d090;border-radius:var(--radius);padding:1rem;margin-bottom:1.25rem;">
+                            <p style="margin:0 0 0.4rem;color:var(--ink-2);font-size:0.875rem;line-height:1.8;">
+                                2026 中秋园游建寺义卖会固本登记<br>已于 <strong style="color:var(--rust);">31/08/2026</strong> 正式截止。
+                            </p>
+                            <p style="margin:0;color:var(--ink-3);font-size:0.8rem;line-height:1.6;">感谢您的护持与善心，功德无量。🏮</p>
+                        </div>
+                        <p style="font-size:0.8rem;color:var(--ink-3);margin:0 0 0.4rem;">如有疑问，请联系 / For enquiries:</p>
+                        <p style="font-size:0.9rem;color:var(--rust);font-weight:600;margin:0;">📱 美珠 016-276 8093 · 若冰 012-673 9431</p>
+                    </div>
+                    <div style="background:var(--gold-pale);border-top:1px solid #f0d090;padding:0.875rem;">
+                        <p style="margin:0;font-size:0.72rem;color:var(--ink-3);">灵鹫山马来西亚佛学会 · Taman Wawasan Recreational Park Puchong</p>
+                    </div>
+                </div>
+            </div>`;
+        }
+
+        // ── INIT ──
+        document.addEventListener('DOMContentLoaded', () => {
+            // Attach Chinese name validation to relevant fields
+            attachCN('name', 'err-name');
+            attachCN('recruiter_name', 'err-recruiter_name');
+            // Init qty display
+            changeQty(0);
+        });
+    </script>
+</body>
+
+</html>
