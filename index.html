@@ -878,7 +878,7 @@
 
         .landing-hero {
             background: linear-gradient(160deg, #3d1a7a 0%, #5a2d9a 50%, #7b3fbe 100%);
-            padding: 28px 20px 24px;
+            padding: 0 0 24px;
             text-align: center;
             position: relative;
             overflow: hidden;
@@ -899,11 +899,9 @@
 
         .landing-hero-poster {
             width: 100%;
-            max-width: 420px;
-            border-radius: var(--radius);
+            max-width: 100%;
             display: block;
-            margin: 0 auto 18px;
-            box-shadow: 0 6px 24px rgba(0, 0, 0, 0.35);
+            margin: 0 auto 20px;
         }
 
         .landing-hero-title {
@@ -926,7 +924,8 @@
             flex-wrap: wrap;
             justify-content: center;
             gap: 8px;
-            margin-bottom: 24px;
+            margin-bottom: 4px;
+            padding: 0 20px;
         }
 
         .landing-pill {
@@ -1319,7 +1318,7 @@
         <!-- ══ LANDING ══ -->
         <div class="landing-screen active" id="landingScreen">
             <div class="landing-hero">
-                <img class="landing-hero-poster" src="/mnt/user-data/uploads/1782616219488_image.png" alt="中秋园游建寺义卖会海报"
+                <img class="landing-hero-poster" src="BANNER.jpeg" alt="中秋园游建寺义卖会海报"
                     onerror="this.style.display='none'">
                 <div class="landing-pills">
                     <div class="landing-pill">📅 <strong>12.9.2026 (周六)</strong></div>
@@ -1327,7 +1326,6 @@
                     <div class="landing-pill">🎑 节目：<strong>7PM – 9PM</strong></div>
                     <div class="landing-pill">💰 <strong>RM 50 / 本</strong></div>
                 </div>
-                <button class="btn-register" onclick="startRegistration()">🎟️ 立即购买固本 →</button>
             </div>
 
             <div class="landing-body">
