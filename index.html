@@ -579,6 +579,17 @@
             height: 0;
         }
 
+        .opt-card.disabled {
+            cursor: not-allowed;
+            opacity: 0.5;
+            background: #f5f5f5;
+        }
+
+        .opt-card.disabled:hover {
+            border-color: var(--border);
+            background: #f5f5f5;
+        }
+
         /* ══ COND BLOCK ══ */
         .cond-block {
             display: none;
@@ -706,6 +717,38 @@
             font-size: 22px;
             font-weight: 700;
             color: var(--orange);
+        }
+
+        .stock-note {
+            font-size: 11.5px;
+            color: var(--pur-mid);
+            margin-top: 8px;
+            display: none;
+        }
+
+        .stock-note.show {
+            display: block;
+        }
+
+        .stock-note.warn {
+            color: #c05020;
+            font-weight: 600;
+        }
+
+        .soldout-banner {
+            display: none;
+            background: #fdf0f0;
+            border: 1px solid #e8c4c4;
+            border-radius: var(--radius-sm);
+            padding: 10px 14px;
+            font-size: 12px;
+            color: #8b1a1a;
+            margin-top: 10px;
+            line-height: 1.6;
+        }
+
+        .soldout-banner.show {
+            display: block;
         }
 
         /* ══ BANK BOX ══ */
@@ -944,6 +987,14 @@
 
         .landing-pill strong {
             color: #f5c518;
+        }
+
+        .landing-pill.stock-pill {
+            display: none;
+        }
+
+        .landing-pill.stock-pill.show {
+            display: flex;
         }
 
         .btn-register {
@@ -1308,6 +1359,7 @@
             <h2 style="font-size:22px;font-weight:700;color:var(--ink);">感恩您的护持！</h2>
             <div class="success-id" id="successId">-</div>
             <p style="font-size:13px;color:var(--ink-2);line-height:1.7;margin-top:6px;">确认邮件已发送</p>
+            <div class="stock-note warn" id="clampNotice" style="text-align:left;margin-top:12px;"></div>
             <div style="background:#f5f5f5;border-radius:var(--radius);padding:14px;margin-top:16px;"
                 id="successSummary"></div>
             <p style="font-size:11px;color:var(--ink-3);margin-top:10px;" id="successTime"></p>
@@ -1327,6 +1379,8 @@
                     <div class="landing-pill">🎪 义卖：<strong>3PM – 7PM</strong></div>
                     <div class="landing-pill">🎑 节目：<strong>7PM – 9PM</strong></div>
                     <div class="landing-pill">💰 <strong>RM 50 / 本</strong></div>
+                    <div class="landing-pill stock-pill" id="landingStockPill">🎟️ <strong id="landingStockText">剩余
+                            - 本</strong></div>
                 </div>
             </div>
 
@@ -1432,6 +1486,7 @@
                             </div>
                             <span style="font-size:13px;color:var(--ink-3);">本固本</span>
                         </div>
+                        <div class="stock-note" id="qtyStockNote"></div>
                         <div class="qty-total-row">
                             <span class="qty-total-label">应付总额</span>
                             <span class="qty-total-amount" id="totalDisplay">RM 50.00</span>
@@ -1473,6 +1528,8 @@
                                 </div>
                             </div>
                         </div>
+                        <div class="soldout-banner" id="soldoutBanner">🎟️ 柜台／劝募人领取的固本已全数售罄。您仍可选择「不领取固本 —
+                            护持建寺」继续护持，感恩您的心意！</div>
                         <div class="err-msg" id="err-pickup"></div>
                         <div class="cond-block" id="cond-recruiter">
                             <div class="cond-title">劝募人资料</div>
@@ -1548,6 +1605,9 @@
         let currentStep = 0, currentQty = 1;
         let receiptFileName = null, receiptFileType = null, currentReceiptData = null;
 
+        // ── Live stock info, populated by checkAvailability() on load ──
+        let stockInfo = { remaining: null, soldOut: false, checked: false };
+
         function selectOpt(card) {
             const group = card.dataset.group;
             document.querySelectorAll(`.opt-card[data-group="${group}"]`).forEach(c => {
@@ -1561,17 +1621,47 @@
         function rv(name) { const r = document.querySelector(`input[name="${name}"]:checked`); return r ? r.value : ''; }
         function v(id) { return (document.getElementById(id) || {}).value || ''; }
 
+        // Max quantity allowed for the *currently selected* pickup method.
+        // counter/recruiter draw down the shared stock cap; donate does not.
+        function getQtyMax() {
+            const pickup = rv('pickup');
+            if ((pickup === 'counter' || pickup === 'recruiter') && stockInfo.checked && stockInfo.remaining !== null) {
+                return Math.max(0, Math.min(CONFIG.maxQty, stockInfo.remaining));
+            }
+            return CONFIG.maxQty;
+        }
+
         function changeQty(delta) {
+            const max = getQtyMax();
             const nq = currentQty + delta;
-            if (nq < 1 || nq > CONFIG.maxQty) return;
+            if (nq < 1 || nq > max) return;
             currentQty = nq;
+            refreshQtyUI();
+            clearErr('qty');
+        }
+
+        function refreshQtyUI() {
+            const max = Math.max(1, getQtyMax());
+            if (currentQty > max) currentQty = max;
             document.getElementById('qtyDisplay').textContent = currentQty;
             document.getElementById('qtyMinus').disabled = (currentQty <= 1);
-            document.getElementById('qtyPlus').disabled = (currentQty >= CONFIG.maxQty);
+            document.getElementById('qtyPlus').disabled = (currentQty >= max);
             const total = (currentQty * CONFIG.pricePerBook).toFixed(2);
             document.getElementById('totalDisplay').textContent = 'RM ' + total;
             document.getElementById('bankAmount').textContent = 'RM ' + total;
-            clearErr('qty');
+
+            const note = document.getElementById('qtyStockNote');
+            const pickup = rv('pickup');
+            if ((pickup === 'counter' || pickup === 'recruiter') && stockInfo.checked && stockInfo.remaining !== null) {
+                if (stockInfo.remaining < CONFIG.maxQty) {
+                    note.textContent = `📦 柜台／劝募人领取剩余 ${stockInfo.remaining} 本，购买数量已自动上限为 ${max} 本。`;
+                    note.classList.add('show');
+                } else {
+                    note.classList.remove('show');
+                }
+            } else {
+                note.classList.remove('show');
+            }
         }
 
         function onPickupChange() {
@@ -1579,6 +1669,39 @@
             const b = document.getElementById('cond-recruiter');
             b.classList.toggle('show', val === 'recruiter');
             if (val !== 'recruiter') { document.getElementById('recruiter_name').value = ''; clearErr('recruiter_name'); }
+            refreshQtyUI();
+        }
+
+        // ── Apply live stock info to the UI: disable counter/recruiter when
+        //    sold out, clamp the qty stepper, show remaining-stock notes. ──
+        function applyStockUI() {
+            const pill = document.getElementById('landingStockPill');
+            const pillText = document.getElementById('landingStockText');
+            if (stockInfo.checked && stockInfo.remaining !== null) {
+                pillText.textContent = stockInfo.soldOut ? '柜台／劝募人固本已售罄' : `剩余 ${stockInfo.remaining} 本`;
+                pill.classList.add('show');
+            }
+
+            const counterCard = document.querySelector('.opt-card[data-value="counter"]');
+            const recruiterCard = document.querySelector('.opt-card[data-value="recruiter"]');
+            const soldoutBanner = document.getElementById('soldoutBanner');
+
+            if (stockInfo.soldOut) {
+                [counterCard, recruiterCard].forEach(card => {
+                    card.classList.add('disabled');
+                    card.onclick = null;
+                });
+                soldoutBanner.classList.add('show');
+                // If a sold-out method is currently selected, switch to donate.
+                const currentPickup = rv('pickup');
+                if (currentPickup === 'counter' || currentPickup === 'recruiter') {
+                    const donateCard = document.querySelector('.opt-card[data-value="donate"]');
+                    selectOpt(donateCard);
+                    onPickupChange();
+                }
+            }
+
+            refreshQtyUI();
         }
 
         const CN_RE = /^[\u4E00-\u9FFF\u3400-\u4DBF·•]+$/u;
@@ -1614,7 +1737,10 @@
             if (!ph || !/^\+?\d{10,13}$/.test(ph)) { showErr('phone', '请输入有效手机号码。'); ok = false; } else clearErr('phone');
             const em = v('email');
             if (!em || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(em)) { showErr('email', '请输入有效电子邮件。'); ok = false; } else clearErr('email');
-            if (currentQty < 1 || currentQty > CONFIG.maxQty) { showErr('qty', '请选择有效购买数量。'); ok = false; } else clearErr('qty');
+            const qtyMax = getQtyMax();
+            if (currentQty < 1 || currentQty > CONFIG.maxQty) { showErr('qty', '请选择有效购买数量。'); ok = false; }
+            else if (qtyMax < 1) { showErr('qty', '柜台／劝募人领取的固本已售罄，请选择「护持建寺」。'); ok = false; }
+            else clearErr('qty');
             if (!rv('pickup')) { showErr('pickup', '请选择领取固本方式。'); ok = false; } else clearErr('pickup');
             if (rv('pickup') === 'recruiter') { if (!validateCN(document.getElementById('recruiter_name'), 'err-recruiter_name', '劝募人姓名')) ok = false; }
             if (!ok) scrollToFirstErr();
@@ -1725,7 +1851,9 @@
             document.getElementById('wizardPanels').style.display = 'block';
             document.getElementById('progressBar').classList.remove('hidden');
             document.getElementById('bottomNav').style.display = 'block';
-            currentStep = 1; showStep(1); window.scrollTo({ top: 0, behavior: 'smooth' });
+            currentStep = 1; showStep(1);
+            applyStockUI();
+            window.scrollTo({ top: 0, behavior: 'smooth' });
         }
 
         async function submitForm() {
@@ -1747,7 +1875,14 @@
                 const data = await resp.json();
                 document.getElementById('loadingOverlay').classList.remove('show');
                 if (data.status === 'success' || data.result === 'success') { showSuccess(data, payload, pickupFull); }
-                else { btn.disabled = false; alert('提交失败，请稍后再试。\n' + (data.message || JSON.stringify(data))); }
+                else {
+                    btn.disabled = false;
+                    if (data.soldOut) {
+                        stockInfo.soldOut = true; stockInfo.remaining = 0; stockInfo.checked = true;
+                        applyStockUI();
+                    }
+                    alert(data.message || '提交失败，请稍后再试。');
+                }
             } catch (err) {
                 document.getElementById('loadingOverlay').classList.remove('show');
                 btn.disabled = false; alert('网络错误，请检查连线后再试。\n' + err.message);
@@ -1756,13 +1891,28 @@
 
         function showSuccess(data, payload, pickupFull) {
             const regId = data.receiptId || ('MQ-' + Date.now().toString().slice(-6));
+            // The backend is authoritative on quantity/total — it may have
+            // auto-clamped the requested quantity to the remaining stock.
+            const finalQty = (typeof data.quantity === 'number') ? data.quantity : payload.quantity;
+            const finalTotal = data.total_amount || payload.total_amount;
+            const wasClamped = finalQty !== payload.quantity;
+
             document.getElementById('successId').textContent = regId;
             document.getElementById('successTime').textContent = '提交时间：' + new Date().toLocaleString('zh-MY');
-            document.getElementById('successSummary').innerHTML = `<div style="text-align:left;font-size:12px;color:var(--ink-2);display:grid;gap:5px;"><div>🧧 姓名：<strong>${payload.name}</strong></div><div>📞 电话：<strong>${payload.phone}</strong></div><div>🎟️ 固本：<strong>${payload.quantity} 本</strong></div><div>💰 总额：<strong>${payload.total_amount}</strong></div><div>📦 领取：<strong>${pickupFull}</strong></div><div>📅 活动：${CONFIG.eventDate}</div></div>`;
+
+            const clampNoticeEl = document.getElementById('clampNotice');
+            if (wasClamped) {
+                clampNoticeEl.textContent = `⚠️ 提交时柜台／劝募人固本仅剩 ${finalQty} 本，您的购买数量已自动调整为 ${finalQty} 本（原申请 ${payload.quantity} 本），总额已相应调整为 ${finalTotal}。`;
+                clampNoticeEl.classList.add('show');
+            } else {
+                clampNoticeEl.classList.remove('show');
+            }
+
+            document.getElementById('successSummary').innerHTML = `<div style="text-align:left;font-size:12px;color:var(--ink-2);display:grid;gap:5px;"><div>🧧 姓名：<strong>${payload.name}</strong></div><div>📞 电话：<strong>${payload.phone}</strong></div><div>🎟️ 固本：<strong>${finalQty} 本</strong></div><div>💰 总额：<strong>${finalTotal}</strong></div><div>📦 领取：<strong>${pickupFull}</strong></div><div>📅 活动：${CONFIG.eventDate}</div></div>`;
             document.getElementById('wizardPanels').style.display = 'none';
             document.getElementById('bottomNav').style.display = 'none';
             document.getElementById('successScreen').classList.add('show');
-            buildPrintReceipt(regId, payload, pickupFull);
+            buildPrintReceipt(regId, { ...payload, quantity: finalQty, total_amount: finalTotal }, pickupFull);
         }
         function buildPrintReceipt(regId, payload, pickupFull) {
             document.getElementById('printReceipt').innerHTML = `<div class="pr-header"><h1>${CONFIG.eventName} — 固本购买确认</h1><h2>${CONFIG.organiser}</h2><p style="font-size:11px;color:#888;margin-top:4px">编号：${regId} · ${new Date().toLocaleDateString('zh-MY')}</p></div><div class="pr-row"><span class="pr-k">姓名</span>${payload.name}</div><div class="pr-row"><span class="pr-k">电话</span>${payload.phone}</div><div class="pr-row"><span class="pr-k">电子邮件</span>${payload.email}</div><div class="pr-row"><span class="pr-k">固本数量</span>${payload.quantity} 本</div><div class="pr-row"><span class="pr-k">应付总额</span><strong>${payload.total_amount}</strong></div><div class="pr-row"><span class="pr-k">领取方式</span>${pickupFull}</div><div class="pr-row"><span class="pr-k">活动日期</span>${CONFIG.eventDate}</div><div class="pr-footer">如有疑问请联络 ${CONFIG.contactPhone}<br>感恩您的护持，功德无量 🙏</div>`;
@@ -1770,9 +1920,19 @@
         function doPrint() { window.print(); }
         function resetForm() { location.reload(); }
 
-        (async function checkDeadline() {
+        (async function checkAvailability() {
             if (new Date() > CONFIG.deadline) { showDeadlineBanner(); return; }
-            try { const res = await fetch(CONFIG.apiEndpoint); const data = await res.json(); if (data.closed) showDeadlineBanner(); } catch (e) { }
+            try {
+                const res = await fetch(CONFIG.apiEndpoint);
+                const data = await res.json();
+                if (data.closed) { showDeadlineBanner(); return; }
+                if (typeof data.remaining === 'number') {
+                    stockInfo.remaining = data.remaining;
+                    stockInfo.soldOut = !!data.soldOut;
+                    stockInfo.checked = true;
+                    applyStockUI();
+                }
+            } catch (e) { /* fail open — don't block registration if the check itself fails */ }
         })();
 
         function showDeadlineBanner() {
@@ -1782,7 +1942,7 @@
         document.addEventListener('DOMContentLoaded', () => {
             attachCN('name', 'err-name');
             attachCN('recruiter_name', 'err-recruiter_name');
-            changeQty(0);
+            refreshQtyUI();
         });
     </script>
 </body>
