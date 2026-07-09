@@ -1379,8 +1379,7 @@
                     <div class="landing-pill">🎪 义卖：<strong>3PM – 7PM</strong></div>
                     <div class="landing-pill">🎑 节目：<strong>7PM – 9PM</strong></div>
                     <div class="landing-pill">💰 <strong>RM 50 / 本</strong></div>
-                    <div class="landing-pill stock-pill" id="landingStockPill">🎟️ <strong id="landingStockText">剩余
-                            - 本</strong></div>
+
                 </div>
             </div>
 
@@ -1468,32 +1467,7 @@
                     </div>
                 </div>
 
-                <div class="form-card">
-                    <div class="card-label">固本购买数量</div>
-                    <div class="field">
-                        <div
-                            style="background:var(--gold-pale);border:1px solid #e8d080;border-radius:var(--radius-sm);padding:12px 14px;margin-bottom:14px;">
-                            <div style="font-size:14px;font-weight:700;color:var(--orange);">🎟️ 中秋园游建寺义卖固本</div>
-                            <div style="font-size:12px;color:var(--ink-3);margin-top:2px;">每本 RM 50 · 支持建寺护持功德</div>
-                        </div>
-                        <label class="req">购买数量 <span style="font-size:11px;color:var(--ink-3);font-weight:400;">（最多 20
-                                本）</span></label>
-                        <div class="qty-row">
-                            <div class="qty-stepper">
-                                <button type="button" class="qty-btn" id="qtyMinus" onclick="changeQty(-1)">−</button>
-                                <div class="qty-display" id="qtyDisplay">1</div>
-                                <button type="button" class="qty-btn" id="qtyPlus" onclick="changeQty(1)">+</button>
-                            </div>
-                            <span style="font-size:13px;color:var(--ink-3);">本固本</span>
-                        </div>
-                        <div class="stock-note" id="qtyStockNote"></div>
-                        <div class="qty-total-row">
-                            <span class="qty-total-label">应付总额</span>
-                            <span class="qty-total-amount" id="totalDisplay">RM 50.00</span>
-                        </div>
-                        <div class="err-msg" id="err-qty"></div>
-                    </div>
-                </div>
+
 
                 <div class="form-card">
                     <div class="card-label">领取固本方式</div>
@@ -1539,6 +1513,34 @@
                                 <div class="err-msg" id="err-recruiter_name"></div>
                             </div>
                         </div>
+                    </div>
+                </div>
+
+
+                <div class="form-card">
+                    <div class="card-label">固本购买数量</div>
+                    <div class="field">
+                        <div
+                            style="background:var(--gold-pale);border:1px solid #e8d080;border-radius:var(--radius-sm);padding:12px 14px;margin-bottom:14px;">
+                            <div style="font-size:14px;font-weight:700;color:var(--orange);">🎟️ 中秋园游建寺义卖固本</div>
+                            <div style="font-size:12px;color:var(--ink-3);margin-top:2px;">每本 RM 50 · 支持建寺护持功德</div>
+                        </div>
+                        <label class="req">购买数量 <span style="font-size:11px;color:var(--ink-3);font-weight:400;">（最多 20
+                                本）</span></label>
+                        <div class="qty-row">
+                            <div class="qty-stepper">
+                                <button type="button" class="qty-btn" id="qtyMinus" onclick="changeQty(-1)">−</button>
+                                <div class="qty-display" id="qtyDisplay">1</div>
+                                <button type="button" class="qty-btn" id="qtyPlus" onclick="changeQty(1)">+</button>
+                            </div>
+                            <span style="font-size:13px;color:var(--ink-3);">本固本</span>
+                        </div>
+                        <div class="stock-note" id="qtyStockNote"></div>
+                        <div class="qty-total-row">
+                            <span class="qty-total-label">应付总额</span>
+                            <span class="qty-total-amount" id="totalDisplay">RM 50.00</span>
+                        </div>
+                        <div class="err-msg" id="err-qty"></div>
                     </div>
                 </div>
             </div><!-- /step-1 -->
