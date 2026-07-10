@@ -688,12 +688,21 @@
         }
 
         .qty-display {
-            min-width: 56px;
+            min-width: 70px;
+            width: 90px;
             text-align: center;
             font-size: 1.3rem;
             font-weight: 700;
             color: var(--pur);
             padding: 0 8px;
+            border: none;
+            background: transparent;
+            font-family: var(--font);
+        }
+
+        .qty-display:focus {
+            outline: none;
+            box-shadow: none;
         }
 
         .qty-total-row {
@@ -1531,7 +1540,9 @@
                         <div class="qty-row">
                             <div class="qty-stepper">
                                 <button type="button" class="qty-btn" id="qtyMinus" onclick="changeQty(-1)">−</button>
-                                <div class="qty-display" id="qtyDisplay">1</div>
+                                <input type="text" inputmode="numeric" pattern="[0-9]*" class="qty-display"
+                                    id="qtyDisplay" value="1" onfocus="this.select()" oninput="onQtyInput(this)"
+                                    onblur="onQtyBlur(this)">
                                 <button type="button" class="qty-btn" id="qtyPlus" onclick="changeQty(1)">+</button>
                             </div>
                             <span style="font-size:13px;color:var(--ink-3);">本固本</span>
@@ -1643,10 +1654,26 @@
             clearErr('qty');
         }
 
+        function onQtyInput(el) {
+            // allow free typing, just strip non-digits live
+            el.value = el.value.replace(/[^\d]/g, '');
+        }
+
+        function onQtyBlur(el) {
+            const max = Math.max(1, getQtyMax());
+            let nq = parseInt(el.value, 10);
+            if (isNaN(nq) || nq < 1) nq = 1;
+            if (nq > max) nq = max;
+            currentQty = nq;
+            refreshQtyUI();
+            clearErr('qty');
+        }
+
         function refreshQtyUI() {
             const max = Math.max(1, getQtyMax());
             if (currentQty > max) currentQty = max;
-            document.getElementById('qtyDisplay').textContent = currentQty;
+            const qtyEl = document.getElementById('qtyDisplay');
+            if (document.activeElement !== qtyEl) qtyEl.value = currentQty;
             document.getElementById('qtyMinus').disabled = (currentQty <= 1);
             document.getElementById('qtyPlus').disabled = (currentQty >= max);
             const total = (currentQty * CONFIG.pricePerBook).toFixed(2);
