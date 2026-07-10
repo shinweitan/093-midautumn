@@ -1448,8 +1448,8 @@
                 <div class="form-card">
                     <div class="card-label">购买者联系资料</div>
                     <div class="field">
-                        <label class="req" for="name">姓名（中文全名）</label>
-                        <p class="field-hint">请填写简体中文全名</p>
+                        <label class="req" for="name">姓名（中文或英文全名）</label>
+                        <p class="field-hint">请填写中文或英文全名</p>
                         <input type="text" id="name" autocomplete="name" placeholder="例：陈大明">
                         <div class="err-msg" id="err-name"></div>
                     </div>
@@ -1508,8 +1508,8 @@
                         <div class="cond-block" id="cond-recruiter">
                             <div class="cond-title">劝募人资料</div>
                             <div class="field" style="margin-bottom:0">
-                                <label class="req" for="recruiter_name">劝募人姓名（中文）</label>
-                                <input type="text" id="recruiter_name" placeholder="请填写劝募人中文全名">
+                                <label class="req" for="recruiter_name">劝募人姓名（中文或英文）</label>
+                                <input type="text" id="recruiter_name" placeholder="请填写劝募人中文或英文全名">
                                 <div class="err-msg" id="err-recruiter_name"></div>
                             </div>
                         </div>
@@ -1525,7 +1525,8 @@
                             <div style="font-size:14px;font-weight:700;color:var(--orange);">🎟️ 中秋园游建寺义卖固本</div>
                             <div style="font-size:12px;color:var(--ink-3);margin-top:2px;">每本 RM 50 · 支持建寺护持功德</div>
                         </div>
-                        <label class="req">购买数量 <span style="font-size:11px;color:var(--ink-3);font-weight:400;">（最多 20
+                        <label class="req">购买数量 <span style="font-size:11px;color:var(--ink-3);font-weight:400;">（最多
+                                100,000
                                 本）</span></label>
                         <div class="qty-row">
                             <div class="qty-stepper">
@@ -1599,7 +1600,7 @@
             organiser: '灵鹫山马来西亚佛学会',
             eventDate: '2026年9月12日',
             pricePerBook: 50,
-            maxQty: 20,
+            maxQty: 100000,
             receiptMaxMB: 10,
             deadline: new Date('2026-08-31T23:59:00+08:00'),
         };
@@ -1706,8 +1707,8 @@
             refreshQtyUI();
         }
 
-        const CN_RE = /^[\u4E00-\u9FFF\u3400-\u4DBF·•]+$/u;
-        function stripNonChinese(s) { return s.replace(/[^\u4E00-\u9FFF\u3400-\u4DBF·•]/gu, ''); }
+        const CN_RE = /^[\u4E00-\u9FFF\u3400-\u4DBFA-Za-z·• ]+$/u;
+        function stripNonChinese(s) { return s.replace(/[^\u4E00-\u9FFF\u3400-\u4DBFA-Za-z·• ]/gu, ''); }
         function attachCN(id, errId) {
             const el = document.getElementById(id); if (!el) return;
             let composing = false;
@@ -1719,7 +1720,7 @@
         function validateCN(el, errId, label) {
             const val = el.value.trim(), name = label || '此栏位';
             if (!val) { showErrEl(el, errId, `请填写${name}（必填）。`); return false; }
-            if (!CN_RE.test(val)) { showErrEl(el, errId, `请输入纯中文（${name}不含英文、数字或符号）。`); return false; }
+            if (!CN_RE.test(val)) { showErrEl(el, errId, `请输入有效姓名（${name}不含数字或符号）。`); return false; }
             clearErrEl(el, errId); return true;
         }
         function formatPhone(input) {
